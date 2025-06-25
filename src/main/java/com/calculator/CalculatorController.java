@@ -7,29 +7,29 @@ import org.springframework.web.bind.annotation.*;
 public class CalculatorController {
 
     @GetMapping("/add")
-    public String add(@RequestParam int x, @RequestParam int y) {
+    public CalculatorResult add(@RequestParam int x, @RequestParam int y) {
         int result = x + y;
-        return "Result: " + result;
+        return new CalculatorResult("add", x, y, result);
     }
 
     @GetMapping("/subtract")
-    public String subtract(@RequestParam int x, @RequestParam int y) {
+    public CalculatorResult subtract(@RequestParam int x, @RequestParam int y) {
         int result = x - y;
-        return "Result: " + result;
+        return new CalculatorResult("subtract", x, y, result);
     }
 
     @GetMapping("/multiply")
-    public String multiply(@RequestParam int x, @RequestParam int y) {
+    public CalculatorResult multiply(@RequestParam int x, @RequestParam int y) {
         int result = x * y;
-        return "Result: " + result;
+        return new CalculatorResult("multiply", x, y, result);
     }
 
     @GetMapping("/divide")
-    public String divide(@RequestParam int x, @RequestParam int y) {
+    public CalculatorResult divide(@RequestParam int x, @RequestParam int y) {
         if (y == 0) {
-            return "❌ Cannot divide by zero";
+            return new CalculatorResult("divide", x, y, Double.NaN);  // or throw error later
         }
         double result = (double) x / y;
-        return "Result: " + result;
+        return new CalculatorResult("divide", x, y, result);
     }
 }
