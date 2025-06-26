@@ -70,4 +70,10 @@ public class CalculatorController {
         throw new RuntimeException("Intentional internal server error!");
     }
 
+    @GetMapping("/null-error")
+    public String nullError() {
+        String str = null;
+        return str.toLowerCase(); // NullPointerException
+    }
+
 }

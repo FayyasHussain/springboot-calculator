@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator App</title>
+</head>
+<body>
+<h1>Simple Calculator</h1>
+
+<label>Number 1: <input type="number" id="x"></label><br><br>
+<label>Number 2: <input type="number" id="y"></label><br><br>
+
+<label>Operation:
+    <select id="operation">
+        <option value="add-json">Add</option>
+        <option value="subtract-json">Subtract</option>
+        <option value="multiply-json">Multiply</option>
+        <option value="divide-json">Divide</option>
+    </select>
+</label><br><br>
+
+<button onclick="calculate()">Calculate</button>
+
+<h2 id="result"></h2>
+
+<script>
+    async function calculate() {
+        const x = document.getElementById('x').value;
+        const y = document.getElementById('y').value;
+        const operation = document.getElementById('operation').value;
+
+        const response = await fetch(`/calculate/${operation}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ x: Number(x), y: Number(y) })
+        });
+
+        const data = await response.json();
+        document.getElementById('result').innerText =
+            `Result: ${data.result} (${data.operation} of ${data.x} and ${data.y})`;
+    }
+</script>
+</body>
+</html>
