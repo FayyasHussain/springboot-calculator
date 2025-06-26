@@ -1,13 +1,13 @@
 package com.calculator;
 
-public class CalculatorResult {
+public class CalculationResult {
 
     private String operation;
     private int x;
     private int y;
     private double result;
 
-    public CalculatorResult(String operation, int x, int y, double result) {
+    public CalculationResult(String operation, int x, int y, double result) {
         this.operation = operation;
         this.x = x;
         this.y = y;

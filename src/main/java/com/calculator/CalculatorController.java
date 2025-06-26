@@ -7,62 +7,67 @@ import org.springframework.web.bind.annotation.*;
 public class CalculatorController {
 
     @GetMapping("/add")
-    public CalculatorResult add(@RequestParam int x, @RequestParam int y) {
+    public CalculationResult add(@RequestParam int x, @RequestParam int y) {
         int result = x + y;
-        return new CalculatorResult("add", x, y, result);
+        return new CalculationResult("add", x, y, result);
     }
 
     @GetMapping("/subtract")
-    public CalculatorResult subtract(@RequestParam int x, @RequestParam int y) {
+    public CalculationResult subtract(@RequestParam int x, @RequestParam int y) {
         int result = x - y;
-        return new CalculatorResult("subtract", x, y, result);
+        return new CalculationResult("subtract", x, y, result);
     }
 
     @GetMapping("/multiply")
-    public CalculatorResult multiply(@RequestParam int x, @RequestParam int y) {
+    public CalculationResult multiply(@RequestParam int x, @RequestParam int y) {
         int result = x * y;
-        return new CalculatorResult("multiply", x, y, result);
+        return new CalculationResult("multiply", x, y, result);
     }
 
     @GetMapping("/divide")
-    public CalculatorResult divide(@RequestParam int x, @RequestParam int y) {
+    public CalculationResult divide(@RequestParam int x, @RequestParam int y) {
         if (y == 0) {
-            return new CalculatorResult("divide", x, y, Double.NaN);  // or throw error later
+            return new CalculationResult("divide", x, y, Double.NaN);  // or throw error later
         }
         double result = (double) x / y;
-        return new CalculatorResult("divide", x, y, result);
+        return new CalculationResult("divide", x, y, result);
     }
 
     @PostMapping("/add-json")
-    public CalculatorResult addJson(@RequestBody CalculationRequest request) {
+    public CalculationResult addJson(@RequestBody CalculationRequest request) {
         int x = request.getX();
         int y = request.getY();
         int result = x + y;
-        return new CalculatorResult("add", x, y, result);
+        return new CalculationResult("add", x, y, result);
     }
 
     @PostMapping("/subtract-json")
-    public CalculatorResult subtractJson(@RequestBody CalculationRequest request) {
+    public CalculationResult subtractJson(@RequestBody CalculationRequest request) {
         int x = request.getX();
         int y = request.getY();
         int result = x - y;
-        return new CalculatorResult("subtract", x, y, result);
+        return new CalculationResult("subtract", x, y, result);
     }
 
     @PostMapping("/multiply-json")
-    public CalculatorResult multiplyJson(@RequestBody CalculationRequest request) {
+    public CalculationResult multiplyJson(@RequestBody CalculationRequest request) {
         int x = request.getX();
         int y = request.getY();
         int result = x * y;
-        return new CalculatorResult("multiply", x, y, result);
+        return new CalculationResult("multiply", x, y, result);
     }
 
     @PostMapping("/divide-json")
-    public CalculatorResult divideJson(@RequestBody CalculationRequest request) {
+    public CalculationResult divideJson(@RequestBody CalculationRequest request) {
         int x = request.getX();
         int y = request.getY();
         double result = y != 0 ? (double) x / y : Double.NaN;
-        return new CalculatorResult("divide", x, y, result);
+        return new CalculationResult("divide", x, y, result);
+    }
+
+    @GetMapping("/cause-error")
+    public String causeError() {
+        throw new RuntimeException("Intentional internal server error!");
     }
 
 }
