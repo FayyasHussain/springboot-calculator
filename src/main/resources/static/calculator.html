@@ -1,91 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Calculator App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 60px;
-        }
-
-        h1 {
-            color: #222;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        input, select {
-            padding: 8px;
-            font-size: 16px;
-            width: 200px;
-            margin-top: 4px;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #3f51b5;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #303f9f;
-        }
-
-        #result {
-            margin-top: 30px;
-            font-size: 22px;
-            color: #2e7d32;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<h1>Simple Calculator</h1>
+<div class="calculator">
+    <input type="text" class="display" id="display" value="0" readonly />
 
-<label>Number 1: <input type="number" id="x"></label><br><br>
-<label>Number 2: <input type="number" id="y"></label><br><br>
+    <div class="buttons">
+        <button onclick="handleOp('mc')">mc</button>
+        <button onclick="handleOp('mr')">mr</button>
+        <button onclick="handleOp('m-')">m-</button>
+        <button onclick="handleOp('m+')">m+</button>
 
-<label>Operation:
-    <select id="operation">
-        <option value="add-json">Add</option>
-        <option value="subtract-json">Subtract</option>
-        <option value="multiply-json">Multiply</option>
-        <option value="divide-json">Divide</option>
-    </select>
-</label><br><br>
+        <button onclick="handleOp('AC')">AC</button>
+        <button onclick="handleOp('sqrt')">√</button>
+        <button onclick="handleOp('%')">%</button>
+        <button onclick="handleOp('/')">÷</button>
 
-<button onclick="calculate()">Calculate</button>
+        <button onclick="appendNum(7)">7</button>
+        <button onclick="appendNum(8)">8</button>
+        <button onclick="appendNum(9)">9</button>
+        <button onclick="handleOp('*')">×</button>
 
-<h2 id="result"></h2>
+        <button onclick="appendNum(4)">4</button>
+        <button onclick="appendNum(5)">5</button>
+        <button onclick="appendNum(6)">6</button>
+        <button onclick="handleOp('-')">−</button>
 
-<script>
-    async function calculate() {
-        const x = document.getElementById('x').value;
-        const y = document.getElementById('y').value;
-        const operation = document.getElementById('operation').value;
+        <button onclick="appendNum(1)">1</button>
+        <button onclick="appendNum(2)">2</button>
+        <button onclick="appendNum(3)">3</button>
+        <button onclick="handleOp('+')">+</button>
 
-        const response = await fetch(`/calculate/${operation}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ x: Number(x), y: Number(y) })
-        });
+        <button onclick="appendNum(0)">0</button>
+        <button onclick="appendDot()">.</button>
+        <button onclick="toggleSign()">±</button>
+        <button onclick="calculate()">=</button>
 
-        const data = await response.json();
-        document.getElementById('result').innerText =
-            `Result: ${data.result} (${data.operation} of ${data.x} and ${data.y})`;
-    }
-</script>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
